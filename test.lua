@@ -60,13 +60,14 @@ local function processQuote(filter)
     print(quote.str)
 end
 
-local function bossKilled()
-    processQuote({"BOSS"});
-end
-
 local function eventHandler(self, event, ...)
-    print("Hello World! Hello " .. event);
-    bossKilled()
+    if (event == "ENCOUNTER_END") then
+        if (success == 1) then
+            processQuote("BOSS_KILLED");
+        else
+            processQuote("BOSS_FAILED");
+        end
+    end
 end
 
 frame:SetScript("OnEvent", eventHandler);
