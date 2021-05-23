@@ -1,6 +1,6 @@
 ## Interface: 90005
-## Title: JackyRP
+## Title: AncestorQuotes
 ## Author: jackylafrite
 ## Version: 0.1
 
-test.lua
+main.lua
