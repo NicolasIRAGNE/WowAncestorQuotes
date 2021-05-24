@@ -1,59 +1,59 @@
 local Quotes = {{
     str = "A trifling victory, but a victory nonetheless.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_03.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_03.ogg"}
 }, {
     str = "These nightmarish creatures can be felled! They can be beaten!",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_01.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_01.ogg"}
 }, {
     str = "Seize this momentum! Push on to the task's end!",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_02.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_02.ogg"}
 }, {
     str = "This expedition, at least, promises success.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_04.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_04.ogg"}
 }, {
     str = "As victories mount, so too will resistance.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_05.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_05.ogg"}
 }, {
     str = "Success so clearly in view... or is it merely a trick of the light?",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_09.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_09.ogg"}
 }, {
     str = "Remind yourself that overconfidence is a slow and insidious killer.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_02.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_02.ogg"}
 }, {
     str = "Be wary - triumphant pride precipitates a dizzying fall...",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_victoryfirst_06.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_06.ogg"}
 }, {
     str = "Confidence surges as the enemy crumbles!",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_killfirst_02.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_02.ogg"}
 }, {
     str = "Another abomination cleansed from our lands.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_kill_weak_02.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_weak_02.ogg"}
 }, {
     str = "Prodigious size alone does not dissuade the sharpened blade.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_kill_big_03.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_03.ogg"}
 }, {
     str = "Their cursed champion falls!",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_kill_big_04.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_04.ogg"}
 }, {
     str = "The bigger the beast, the greater the glory.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_kill_big_01.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_01.ogg"}
 }, {
     str = "A victory - perhaps a turning point.",
     events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/JackyRP/sounds/Vo_narr_good_kill_big_02.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_02.ogg"}
 }}
 
 -- shamelessly stolen from https://stackoverflow.com/a/33511182
