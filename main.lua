@@ -121,14 +121,17 @@ local function processQuote(filter)
         return
     end
     local quote = tmp[math.random(#tmp)]
+    -- print(quote.str);
     if (quote.sound) then
         PlaySoundFile(quote.sound[1], "Dialog");
     end
-    -- print(quote.str)
 end
+
+onCooldown = false;
 
 local function eventHandler(self, event, ...)
     if (event == "ENCOUNTER_END") then
+        encounterID, encounterName, difficultyID, groupSize, success = ...;
         if (success == 1) then
             processQuote({"BOSS_KILLED"});
         else
