@@ -54,6 +54,42 @@ local Quotes = {{
     str = "A victory - perhaps a turning point.",
     events = {"BOSS_KILLED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_02.ogg"}
+}, {
+    str = "A wise general cuts losses, and regroups.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_retreat_success_02.ogg"}
+}, {
+    str = "This skirmish may be lost, but the battle may yet be won.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_retreat_success_01.ogg"}
+}, {
+    str = "The sin is not in being outmatched, but in failing to recognize it.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_retreat_success_03.ogg"}
+}, {
+    str = "A setback, but not the end of things!",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_expeditionfail1.ogg"}
+}, {
+    str = "Wounds to be tended; lessons to be learned.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_expeditionfail2.ogg"}
+}, {
+    str = "Regroup. Reassemble. Evil is timeless, after all.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_expeditionfail3.ogg"}
+}, {
+    str = "Failure tests the mettle of heart, brain, and body.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_expeditionfail4.ogg"}
+}, {
+    str = "You cannot learn a thing you think you know...",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_bad_questfail_11.ogg"}
+}, {
+    str = "Do not ruminate on this fleeting failure - the campaign is long, and victory will come.",
+    events = {"BOSS_FAILED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_bad_questfail_07.ogg"}
 }}
 
 -- shamelessly stolen from https://stackoverflow.com/a/33511182
