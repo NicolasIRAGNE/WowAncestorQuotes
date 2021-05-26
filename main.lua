@@ -90,6 +90,22 @@ local Quotes = {{
     str = "Do not ruminate on this fleeting failure - the campaign is long, and victory will come.",
     events = {"BOSS_FAILED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_bad_questfail_07.ogg"}
+}, {
+    str = "More blood soaks the soil, feeding the evil therein.",
+    events = {"PARTY_MEMBER_DIED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_death2.ogg"}
+}, {
+    str = "This is no place for the weak, or the foolhardy.",
+    events = {"PARTY_MEMBER_DIED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_death4.ogg"}
+}, {
+    str = "Another life wasted in the pursuit of glory and gold.",
+    events = {"PARTY_MEMBER_DIED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_death3.ogg"}
+}, {
+    str = "More dust, more ashes, more disappointment.",
+    events = {"PARTY_MEMBER_DIED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_death6.ogg"}
 }}
 
 -- shamelessly stolen from https://stackoverflow.com/a/33511182
@@ -102,9 +118,8 @@ local function has_value(tab, val)
     return false
 end
 
-local frame = CreateFrame("FRAME", "FooAddonFrame");
-frame:RegisterEvent("PLAYER_ENTERING_WORLD");
-frame:RegisterEvent("ENCOUNTER_END");
+onCooldown = false;
+cooldownTime = 8
 
 local function processQuote(filter)
     -- Create a temporary table with the quotes matching the filters
@@ -118,24 +133,48 @@ local function processQuote(filter)
         end
     end
     if (#tmp == 0) then
-        return
+        return -- no quote matches filters. outta here!
     end
     local quote = tmp[math.random(#tmp)]
-    -- print(quote.str);
+    print(quote.str); -- print in chat for now, mostly debug purposes. maybe /say it in the future idk
     if (quote.sound) then
         PlaySoundFile(quote.sound[1], "Dialog");
     end
+    onCooldown = true;
+    C_Timer.After(cooldownTime, function()
+        onCooldown = false
+        print("Cooldown reset!")
+    end);
 end
 
-onCooldown = false;
+local frame = CreateFrame("FRAME", "FooAddonFrame");
+frame:RegisterEvent("ENCOUNTER_END");
+frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
 
 local function eventHandler(self, event, ...)
+    if (onCooldown) then
+        return
+    end
     if (event == "ENCOUNTER_END") then
         encounterID, encounterName, difficultyID, groupSize, success = ...;
         if (success == 1) then
             processQuote({"BOSS_KILLED"});
         else
             processQuote({"BOSS_FAILED"});
+        end
+    end
+
+    if (event == "COMBAT_LOG_EVENT_UNFILTERED") then
+        local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
+            destFlags, destRaidFlags = ... -- seriously lua ??
+        if subevent == "UNIT_DIED" and strfind(guid, "Player") and not UnitIsFeignDeath(sourceName) then
+            if UnitGroupRolesAssigned(sourceName) == "DAMAGER" or UnitGroupRolesAssigned(sourceName) == "HEALER" or
+                UnitGroupRolesAssigned(sourceName) == "TANK" then
+                local test = math.random()
+                if (test > 0.70) then
+                    processQuote({"PARTY_MEMBER_DIED"})
+                end
+            end
         end
     end
 end
