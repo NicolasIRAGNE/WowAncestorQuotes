@@ -1,3 +1,5 @@
+local Foods = {192002}
+
 local Quotes = {{
     str = "A trifling victory, but a victory nonetheless.",
     events = {"BOSS_KILLED"},
@@ -134,6 +136,54 @@ local Quotes = {{
     str = "Press this advantage, give them no quarter!",
     events = {"RECEIVED_BUFF"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_03.ogg"}
+}, {
+    str = "This one has become vestigial, useless.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_05.ogg"}
+}, {
+    str = "Suffer not the lame horse... nor the broken man.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_04.ogg"}
+}, {
+    str = "Another soul battered and broken, cast aside like a spent torch.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_01.ogg"}
+}, {
+    str = "Those without the stomach for this place must move on.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_02.ogg"}
+}, {
+    str = "Send this one to journey elsewhere, for we have need of sterner stock.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_03.ogg"}
+}, {
+    str = "Slumped shoulders, wild eyes, and a stumbling gait - this one is no more good to us.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_08.ogg"}
+}, {
+    str = "The task ahead is terrible, and weakness cannot be tolerated.",
+    events = {"PLAYER_LEFT_GUILD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_06.ogg"}
+}, {
+    str = "A moment of respite. A chance to steel oneself against the coming horrors.",
+    events = {"FOOD_EATEN"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_camp_01.ogg"}
+}, {
+    str = "Gathered close in tenuous firelight, and uneasy companionship.",
+    events = {"FOOD_EATEN"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_04.ogg"}
+}, {
+    str = "Huddled together, furtive and vulnerable. Rats in a maze.",
+    events = {"FOOD_EATEN"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_camp_05.ogg"}
+}, {
+    str = "The requirements of survival cannot be met on an empty stomach.",
+    events = {"FOOD_EXPIRED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_starve5.ogg"}
+}, {
+    str = "No force of will can overcome a failing body.",
+    events = {"FOOD_EXPIRED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_starve4.ogg"}
 }}
 
 -- shamelessly stolen from https://stackoverflow.com/a/33511182
@@ -178,13 +228,15 @@ end
 local frame = CreateFrame("FRAME", "FooAddonFrame");
 frame:RegisterEvent("ENCOUNTER_END");
 frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+frame:RegisterEvent("CHAT_MSG_SYSTEM");
 
+local playerGUID = UnitGUID("player")
 local function eventHandler(self, event, ...)
     if (onCooldown) then
         return
     end
     if (event == "ENCOUNTER_END") then
-        encounterID, encounterName, difficultyID, groupSize, success = ...;
+        local encounterID, encounterName, difficultyID, groupSize, success = ...;
         if (success == 1) then
             processQuote({"BOSS_KILLED"});
             return
@@ -196,10 +248,13 @@ local function eventHandler(self, event, ...)
 
     if (event == "COMBAT_LOG_EVENT_UNFILTERED") then
         local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
-            destFlags, destRaidFlags = ... -- seriously lua ??
-        if (subevent == "UNIT_DIED" and strfind(guid, "Player") and not UnitIsFeignDeath(sourceName)) then
-            if (UnitGroupRolesAssigned(sourceName) == "DAMAGER" or UnitGroupRolesAssigned(sourceName) == "HEALER" or
-                UnitGroupRolesAssigned(sourceName) == "TANK") then
+            destFlags, destRaidFlags = CombatLogGetCurrentEventInfo();
+        if (subevent == "UNIT_DIED") then
+            print(destGUID .. destName)
+        end
+        if (subevent == "UNIT_DIED" and strfind(destGUID, "Player") and not UnitIsFeignDeath(destName)) then
+            if (UnitGroupRolesAssigned(destName) == "DAMAGER" or UnitGroupRolesAssigned(destName) == "HEALER" or
+                UnitGroupRolesAssigned(destName) == "TANK") then
                 local test = math.random()
                 if (test > 0.70) then
                     processQuote({"PARTY_MEMBER_DIED"})
@@ -207,13 +262,33 @@ local function eventHandler(self, event, ...)
                 end
             end
         end
-        if subevent == "SPELL_AURA_APPLIED" then
-            local auraType, amount = select(15, ...) -- i hate lua
-            if (auraType == "Power Infusion" or auraType == "Bloodlust" or auraType == "Heroism" or auraType ==
-                "Timewarp") then
+        if (subevent == "SPELL_AURA_APPLIED" and destGUID == playerGUID) then
+            local spellId, spellName = select(12, CombatLogGetCurrentEventInfo()) -- i hate lua
+            if (spellName == "Well Fed") then
+                processQuote({"FOOD_EATEN"})
+                return
+            end
+            if (spellName == "Heroism" or spellName == "Time Warp" or spellName == "Bloodlust" or spellName ==
+                "Power Infusion") then
                 processQuote({"RECEIVED_BUFF"})
                 return
             end
+        end
+        if (subevent == "SPELL_AURA_REMOVED" and destGUID == playerGUID) then
+            local spellId, spellName = select(12, CombatLogGetCurrentEventInfo()) -- i hate lua
+            if (spellName == "Well Fed") then
+                processQuote({"FOOD_EXPIRED"})
+                return
+            end
+        end
+    end
+
+    if (event == "CHAT_MSG_SYSTEM") then
+        local msg = ...
+        if (string.match(msg, string.gsub(ERR_GUILD_LEAVE_S, "%%s", "") or
+            string.match(msg, string.gsub(ERR_GUILD_REMOVE_SS, "%%s", "")))) then -- i am so sorry
+            processQuote({"PLAYER_LEFT_GUILD"})
+            return
         end
     end
 end
