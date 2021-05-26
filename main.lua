@@ -106,6 +106,34 @@ local Quotes = {{
     str = "More dust, more ashes, more disappointment.",
     events = {"PARTY_MEMBER_DIED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_death6.ogg"}
+}, {
+    str = "Anger is power - unleash it!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_virtue_powerful.ogg"}
+}, {
+    str = "The blood pumps, the limbs obey.",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_healcrit_03.ogg.ogg"}
+}, {
+    str = "A time to perform beyond one's limits!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_buff_03.ogg"}
+}, {
+    str = "Inspiration and improvement!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_buff_04.ogg"}
+}, {
+    str = "The blood quickens!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_buff_01.ogg"}
+}, {
+    str = "A brilliant confluence of skill and purpose!!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_buff_02.ogg"}
+}, {
+    str = "Press this advantage, give them no quarter!",
+    events = {"RECEIVED_BUFF"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_03.ogg"}
 }}
 
 -- shamelessly stolen from https://stackoverflow.com/a/33511182
@@ -159,21 +187,32 @@ local function eventHandler(self, event, ...)
         encounterID, encounterName, difficultyID, groupSize, success = ...;
         if (success == 1) then
             processQuote({"BOSS_KILLED"});
+            return
         else
             processQuote({"BOSS_FAILED"});
+            return
         end
     end
 
     if (event == "COMBAT_LOG_EVENT_UNFILTERED") then
         local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
             destFlags, destRaidFlags = ... -- seriously lua ??
-        if subevent == "UNIT_DIED" and strfind(guid, "Player") and not UnitIsFeignDeath(sourceName) then
-            if UnitGroupRolesAssigned(sourceName) == "DAMAGER" or UnitGroupRolesAssigned(sourceName) == "HEALER" or
-                UnitGroupRolesAssigned(sourceName) == "TANK" then
+        if (subevent == "UNIT_DIED" and strfind(guid, "Player") and not UnitIsFeignDeath(sourceName)) then
+            if (UnitGroupRolesAssigned(sourceName) == "DAMAGER" or UnitGroupRolesAssigned(sourceName) == "HEALER" or
+                UnitGroupRolesAssigned(sourceName) == "TANK") then
                 local test = math.random()
                 if (test > 0.70) then
                     processQuote({"PARTY_MEMBER_DIED"})
+                    return
                 end
+            end
+        end
+        if subevent == "SPELL_AURA_APPLIED" then
+            local auraType, amount = select(15, ...) -- i hate lua
+            if (auraType == "Power Infusion" or auraType == "Bloodlust" or auraType == "Heroism" or auraType ==
+                "Timewarp") then
+                processQuote({"RECEIVED_BUFF"})
+                return
             end
         end
     end
