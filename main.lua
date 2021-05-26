@@ -113,7 +113,7 @@ local Quotes = {{
 }, {
     str = "The blood pumps, the limbs obey.",
     events = {"RECEIVED_BUFF"},
-    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_healcrit_03.ogg.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_healcrit_03.ogg"}
 }, {
     str = "A time to perform beyond one's limits!",
     events = {"RECEIVED_BUFF"},
