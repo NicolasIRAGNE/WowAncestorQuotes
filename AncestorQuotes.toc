@@ -3,4 +3,6 @@
 ## Author: jackylafrite
 ## Version: 0.2
 
+quotes.lua
+constants.lua
 main.lua
