@@ -13,7 +13,7 @@ local function has_value(tab, val)
 end
 
 onCooldown = false;
-cooldownTime = 8
+cooldownTime = 1
 
 local function processQuote(filter)
     -- Create a temporary table with the quotes matching the filters
@@ -29,7 +29,11 @@ local function processQuote(filter)
     if (#tmp == 0) then
         return -- no quote matches filters. outta here!
     end
+
     local quote = tmp[math.random(#tmp)]
+    if (math.random() > NS.Events[quote.events[1]]) then
+        return
+    end
     print(quote.str); -- print in chat for now, mostly debug purposes. maybe /say it in the future idk
     if (quote.sound) then
         PlaySoundFile(quote.sound[1], "Dialog");
@@ -67,11 +71,8 @@ local function eventHandler(self, event, ...)
         if (subevent == "UNIT_DIED" and strfind(destGUID, "Player") and not UnitIsFeignDeath(destName)) then
             if (UnitGroupRolesAssigned(destName) == "DAMAGER" or UnitGroupRolesAssigned(destName) == "HEALER" or
                 UnitGroupRolesAssigned(destName) == "TANK") then
-                local test = math.random()
-                if (test > 0.70) then
-                    processQuote({"PARTY_MEMBER_DIED"})
-                    return
-                end
+                processQuote({"PARTY_MEMBER_DIED"})
+                return
             end
         end
         if (subevent == "SPELL_AURA_APPLIED" and destGUID == playerGUID) then
@@ -91,6 +92,39 @@ local function eventHandler(self, event, ...)
                 processQuote({"FOOD_EXPIRED"})
                 return
             end
+        end
+        if (string.find(subevent, "_DAMAGE") and sourceGUID == playerGUID and destGUID ~= playerGUID) then
+            -- Player inflicts damage! to something else. Congratulations, player.
+            if (subevent == "SWING_DAMAGE") then -- melee autoattack damage
+                amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand =
+                    select(12, CombatLogGetCurrentEventInfo())
+            else -- this should cover all the other types because we already eleminated ENVIRONMENTAL
+                spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand =
+                    select(12, CombatLogGetCurrentEventInfo())
+            end
+
+            if (overkill >= 0) then -- player kills the guy
+                if (destGUID ~= UnitGUID("target")) then
+                    processQuote({"UNIT_KILLED_INDIRECT"})
+                    return
+                else
+                    local Types = {
+                        Aberration = "UNIT_KILLED_ABERRATION",
+                        Beast = "UNIT_KILLED_BEAST",
+                        Giant = "UNIT_KILLED_GIANT",
+                        Humanoid = "UNIT_KILLED_HUMANOID",
+                        Mechanical = "UNIT_KILLED_MECHANICAL",
+                        Undead = "UNIT_KILLED_UNDEAD"
+                    }
+                    if (Types[UnitCreatureType("target")]) then
+                        processQuote({Types[UnitCreatureType("target")], "UNIT_KILLED"})
+                        return
+                    end
+                end
+                processQuote({"UNIT_KILLED"})
+                return
+            end
+
         end
     end
 

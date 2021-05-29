@@ -171,7 +171,7 @@ NS.Quotes = {{
 }, {
     str = "Gathered close in tenuous firelight, and uneasy companionship.",
     events = {"FOOD_EATEN"},
-    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_town_dismiss_04.ogg"}
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_camp_04.ogg"}
 }, {
     str = "Huddled together, furtive and vulnerable. Rats in a maze.",
     events = {"FOOD_EATEN"},
@@ -184,4 +184,12 @@ NS.Quotes = {{
     str = "No force of will can overcome a failing body.",
     events = {"FOOD_EXPIRED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_starve4.ogg"}
+}, {
+    str = "As the fiend falls, a faint hope blossoms.",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_01.ogg"}
+}, {
+    str = "Even reanimated bones can fall; even the dead can die again.",
+    events = {"UNIT_KILLED_UNDEAD"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_bosskillruins1.ogg"}
 }}
