@@ -34,15 +34,11 @@ NS.Quotes = {{
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_victoryfirst_06.ogg"}
 }, {
     str = "Confidence surges as the enemy crumbles!",
-    events = {"BOSS_KILLED"},
+    events = {"BOSS_KILLED", "UNIT_KILLED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_02.ogg"}
 }, {
-    str = "Another abomination cleansed from our lands.",
-    events = {"BOSS_KILLED"},
-    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_weak_02.ogg"}
-}, {
     str = "Prodigious size alone does not dissuade the sharpened blade.",
-    events = {"BOSS_KILLED"},
+    events = {"BOSS_KILLED", "UNIT_KILLED_GIANT"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_03.ogg"}
 }, {
     str = "Their cursed champion falls!",
@@ -134,7 +130,7 @@ NS.Quotes = {{
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_buff_02.ogg"}
 }, {
     str = "Press this advantage, give them no quarter!",
-    events = {"RECEIVED_BUFF"},
+    events = {"RECEIVED_BUFF", "UNIT_KILLED"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_03.ogg"}
 }, {
     str = "This one has become vestigial, useless.",
@@ -192,4 +188,76 @@ NS.Quotes = {{
     str = "Even reanimated bones can fall; even the dead can die again.",
     events = {"UNIT_KILLED_UNDEAD"},
     sound = {"Interface/AddOns/AncestorQuotes/sounds/Narration_bosskillruins1.ogg"}
+}, {
+    str = "Their formation is broken - maintain the offensive.",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_04.ogg"}
+}, {
+    str = "Continue the onslaught! Destroy. Them. All.",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_05.ogg"}
+}, {
+    str = "Executed with impunity!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_weak_01.ogg"}
+}, {
+    str = "Another abomination cleansed from our lands.",
+    events = {"UNIT_KILLED_ABERRATION", "UNIT_KILLED_UNDEAD", "BOSS_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_killfirst_04.ogg"}
+}, {
+    str = "Begone, fiend!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_weak_03.ogg"}
+}, {
+    str = "Another one falls!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_weak_05.ogg"}
+}, {
+    str = "Decimated!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_01.ogg"}
+}, {
+    str = "Obliterated!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_02.ogg"}
+}, {
+    str = "Destroyed!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_03.ogg"}
+}, {
+    str = "Eradicated!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_04_v1.ogg"}
+}, {
+    str = "Eradicated!", -- yes, there are two of them
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_04_v2.ogg"}
+}, {
+    str = "Annihilated!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_05.ogg"}
+}, {
+    str = "Eradicated!",
+    events = {"UNIT_KILLED"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_strong_04_v1.ogg"}
+}, {
+    str = "Monstrous size has no intrinsic merit, unless inordinate exsanguination be considered a virtue!",
+    events = {"UNIT_KILLED_GIANT"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_big_05.ogg"}
+}, {
+    str = "A death by inches...",
+    events = {"UNIT_KILLED_INDIRECT"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_dot_03.ogg"}
+}, {
+    str = "Great is the weapon that cuts on its own!",
+    events = {"UNIT_KILLED_INDIRECT"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_dot_01.ogg"}
+}, {
+    str = "Slowly, gently, this is how a life is taken...",
+    events = {"UNIT_KILLED_INDIRECT"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_dot_04.ogg"}
+}, {
+    str = "The slow death - unforeseen, unforgiving.",
+    events = {"UNIT_KILLED_INDIRECT"},
+    sound = {"Interface/AddOns/AncestorQuotes/sounds/Vo_narr_good_kill_dot_02.ogg"}
 }}

@@ -13,7 +13,7 @@ local function has_value(tab, val)
 end
 
 onCooldown = false;
-cooldownTime = 1
+cooldownTime = 10
 
 local function processQuote(filter)
     -- Create a temporary table with the quotes matching the filters
