@@ -1,4 +1,4 @@
-## Interface: 120000
+## Interface: 120005
 ## Title: AncestorQuotes
 ## Author: jackylafrite
 ## Version: 0.2
